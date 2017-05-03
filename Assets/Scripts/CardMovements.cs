@@ -39,6 +39,7 @@ public class CardMovements : MonoBehaviour {
 		if(timerBegin){
 			timer -= Time.deltaTime;
 			if(timer <= 0 && executingUpdate == false){
+				timerBegin = false;
 				executingUpdate = true;
 				GameObject[] cards = GameObject.FindGameObjectsWithTag("Cards"); 
 
@@ -52,19 +53,18 @@ public class CardMovements : MonoBehaviour {
 					}
 				}
 
-				cardTypes[1].GetComponent<CardMovements> ().press = false;
-				cardTypes[0].GetComponent<CardMovements> ().press = false;
 				if (cardTypes [0].GetComponent<CardMovements> ().type == cardTypes [1].GetComponent<CardMovements> ().type) {
 					Destroy (cardTypes [0]);
 					Destroy (cardTypes [1]);
 				} else {
 					cardTypes[0].transform.eulerAngles = new Vector3 (0, 0, 0);
 					cardTypes[1].transform.eulerAngles = new Vector3 (0, 0, 0);
+					cardTypes[1].GetComponent<CardMovements> ().press = false;
+					cardTypes[0].GetComponent<CardMovements> ().press = false;
 				}
 
 				cardTypes [0] = null;
 				cardTypes [1] = null;
-				timerBegin = false;
 			}
 		}
 	}
